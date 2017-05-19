@@ -1,0 +1,76 @@
+<launch> 
+  <arg name="camera_name_f_r" default="right" />
+  <arg name="camera_name_f_l" default="left" />
+  <arg name="camera_name_r_r" default="right" />
+  <arg name="camera_name_r_l" default="left" />
+  <arg name="camera_name_l_r" default="right" />
+  <arg name="camera_name_l_l" default="left" />    
+  <arg name="camera_ip_f_r" default="192.168.1.100" />
+  <arg name="camera_ip_f_l" default="192.168.1.101" />
+  <arg name="camera_ip_r_r" default="192.168.1.102" />
+  <arg name="camera_ip_r_l" default="192.168.1.103" />
+  <arg name="camera_ip_l_r" default="192.168.1.104" />
+  <arg name="camera_ip_l_l" default="192.168.1.105" />
+
+  <arg name="image_width" default="640" />
+  <arg name="image_height" default="480" />
+  <arg name="enable_theora" default="1" />
+
+  <arg name="debug_mode_enable" value="1"/> 
+
+  <master auto="start" />
+  <group ns="bow">
+    <group ns="$(arg camera_name_f_r)">
+      <node pkg="image_view" type="image_view" name="image_view_$(arg camera_name_f_r)" 
+            if="$(arg debug_mode_enable)"> 
+          <param name="image_transport" value="compressed" />
+          <remap from="image" to="/bow/$(arg camera_name_f_r)/image_rect_color" />
+      </node>
+    </group>
+
+
+    <group ns="$(arg camera_name_f_l)">
+      <node pkg="image_view" type="image_view" name="image_view_$(arg camera_name_f_l)" 
+            if="$(arg debug_mode_enable)"> 
+          <param name="image_transport" value="compressed" />
+          <remap from="image" to="/bow/$(arg camera_name_f_l)/image_rect_color" />
+      </node>
+    </group>
+  </group>
+
+  <group ns="starboard">
+    <group ns="$(arg camera_name_r_r)">
+      <node pkg="image_view" type="image_view" name="image_view_$(arg camera_name_r_r)" 
+            if="$(arg debug_mode_enable)"> 
+          <param name="image_transport" value="compressed" />
+          <remap from="image" to="/starboard/$(arg camera_name_r_r)/image_rect_color" />
+      </node>
+    </group>
+
+    <group ns="$(arg camera_name_r_l)">
+      <node pkg="image_view" type="image_view" name="image_view_$(arg camera_name_r_l)" 
+            if="$(arg debug_mode_enable)"> 
+          <param name="image_transport" value="compressed" />
+          <remap from="image" to="/starboard/$(arg camera_name_r_l)/image_rect_color" />
+      </node>
+    </group>
+  </group>
+
+  <group ns="port">
+    <group ns="$(arg camera_name_l_r)">
+      <node pkg="image_view" type="image_view" name="image_view_$(arg camera_name_l_r)" 
+            if="$(arg debug_mode_enable)"> 
+          <param name="image_transport" value="compressed" />
+          <remap from="image" to="/port/$(arg camera_name_l_r)/image_rect_color" />
+      </node>
+    </group>
+
+    <group ns="$(arg camera_name_l_l)">
+      <node pkg="image_view" type="image_view" name="image_view_$(arg camera_name_l_l)" 
+            if="$(arg debug_mode_enable)"> 
+          <param name="image_transport" value="compressed" />
+          <remap from="image" to="/port/$(arg camera_name_l_l)/image_rect_color" />
+      </node>
+    </group>
+  </group>
+</launch>

@@ -1,0 +1,20 @@
+<launch>
+    <node pkg="mavros" type="mavros_node" name="mavros" required="true" clear_params="true" output="screen">
+        <param name="fcu_url" value="/dev/ttyACM0:921600" />
+        <param name="gcs_url" value="udp://14550@127.0.0.1:14556" />
+        <param name="target_system_id" value="1" />
+        <param name="target_component_id" value="1" />
+
+        <rosparam command="load" file="$(find mavros)/launch/px4_pluginlists.yaml" />
+        <rosparam command="load" file="$(find mavros)/launch/px4_config.yaml" />
+        
+        <!--
+        <param name="mocap/use_tf" value="true"/>
+        <param name="mocap/use_pose" value="false"/>        
+        -->
+        <param name="vision_pose/tf/listen" value="false"/>
+        <param name="vision_pose/tf/frame_id" value="map"/>
+        <param name="vision_pose/tf/child_frame_id" value="copter_frame"/>
+        
+    </node>
+</launch>

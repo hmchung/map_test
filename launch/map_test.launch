@@ -1,0 +1,36 @@
+<launch>
+	<master auto="start"/>
+
+	<node pkg="map_test" type="object_manager" name="object_manager" output="screen"/>
+     
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find map_test)/param/costmap_common_params.yaml"      command="load" ns="global_costmap"/>
+        <rosparam file="$(find map_test)/param/costmap_common_params.yaml"      command="load" ns="local_costmap"/>
+        <rosparam file="$(find map_test)/param/local_costmap_params.yaml"       command="load"/>
+        <rosparam file="$(find map_test)/param/global_costmap_params.yaml"      command="load"/>
+        <rosparam file="$(find map_test)/param/base_local_planner_params.yaml"  command="load"/>
+        <rosparam file="$(find map_test)/param/move_base_params.yaml"           command="load"/>
+    </node>
+
+    <node pkg="map_test" type="robot_tf_simulator" name="simulator"/>
+<!--  
+    <node name="arbotix" pkg="arbotix_python" type="arbotix_driver" output="screen">
+        <rosparam file="$(find teleop_ugv)/chassis_conf/tilt_head_conf.yaml" command="load" />
+    </node>
+
+    <node name="scan_head" pkg="teleop_ugv" type="scan_head" 
+        output="screen" respawn="true">
+        <param name="angle_lower_input" value="-0.785398"/>
+        <param name="angle_upper_input" value="0.785398"/>
+        <param name="scan_rate_input" value="0.785398"/>
+    </node>
+
+    <node name="object_scanner" pkg="map_test" type="object_scanner" output="screen"/>
+
+    <node pkg="hokuyo_node" type="hokuyo_node" name="hokuyo_node" output="screen">
+        <param name="min_ang" value="-1.39626"/>
+        <param name="max_ang" value="1.39626"/>
+        <param name="port" value="/dev/ttyACM0"/>
+    </node>
+ -->    
+</launch>
